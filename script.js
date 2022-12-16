@@ -1,24 +1,48 @@
-// // If markers should be stored somewhere, we can make an array
-// let Markers = new Array();
-
 let markerWidth = 30;
 let markerHeight = 30;
 
+let addMarker = (x, y, text) => {
+    let newMarker = document.createElement("img");
+    newMarker.src = "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png";
+
+    newMarker.classList.add("marker");
+    newMarker.style.left = x - markerWidth / 2 + "px"; // 15 = half of marker width
+    newMarker.style.top = y - markerHeight + "px"; // 28 = marker height
+    newMarker.title = text;
+
+    let markerContainer = document.querySelector("#markerCont");
+
+    markerContainer.appendChild(newMarker);
+};
+
+// Load markers from local storage
+let Markers;
+if (localStorage.getItem("Markers")) {
+    Markers = JSON.parse(localStorage.getItem("Markers"));
+
+    Markers.forEach((marker) => {
+        addMarker(marker.xPosition, marker.yPosition, marker.markerInfo);
+    });
+} else {
+    Markers = [];
+}
+
 let validate = (formData) => {
-    document.getElementById("nameErrorDiv").innerHTML = "";
+    let nameError = document.querySelector("#nameErrorDiv");
+    nameError.innerHTML = "";
 
     // name validation
     let name = formData.get("name");
     // alphanumeric and spaces
     if (!name.match(/^[a-z\d\-_\s]+$/i)) {
-        let nameError = document.createElement("span");
+        let nameErrorText = document.createElement("span");
         if (name === null || name === "") {
-            nameError.textContent = "Name cannot be empty";
+            nameErrorText.textContent = "Name cannot be empty";
         } else {
-            nameError.textContent = "Name should contain only letters, numbers and spaces";
+            nameErrorText.textContent = "Name should contain only letters, numbers and spaces";
         }
-        nameError.style.color = "red";
-        document.getElementById("nameErrorDiv").appendChild(nameError);
+        nameErrorText.style.color = "red";
+        nameError.appendChild(nameErrorText);
     }
 
     // description validation
@@ -42,22 +66,31 @@ let validate = (formData) => {
     // }
 };
 
-document.getElementById("overlay").onclick = function (e) {
-    alert("Please submit the form with marker information first!");
-};
+let overlay = document.querySelector("#overlay");
 
-document.getElementById("submit").onclick = function (e) {
+overlay.addEventListener("click", function (e) {
+    alert("Please submit the form with marker information first!");
+});
+
+document.querySelector("#submit").addEventListener("click", function (e) {
     e.preventDefault();
 
-    validate(new FormData(document.querySelector("form")));
-    document.getElementById("overlay").hidden = true;
+    validate(new FormData(document.querySelector("#form")));
+    overlay.classList.add("hidden");
 
-    document.getElementById("invitation").textContent = "Place a marker.";
-};
+    document.querySelector("#invitation").textContent = "Place a marker.";
+});
 
-document.getElementById("map").onclick = function (e) {
-    let form = document.getElementById("form");
-    let formData = new FormData(document.querySelector("form"));
+document.querySelector("#clearButton").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    localStorage.clear();
+    location.reload();
+});
+
+document.querySelector("#map").addEventListener("click", function (e) {
+    let form = document.querySelector("#form");
+    let formData = new FormData(document.querySelector("#form"));
 
     // for (let pair of formData.entries()) {
     //     console.log(pair[0] + ", " + pair[1]);
@@ -88,19 +121,15 @@ document.getElementById("map").onclick = function (e) {
         markerTitle += "\nCreated: " + new Date().toLocaleString();
     }
 
-    // // If markers should be stored somewhere, we can push them to the array Markers
-    // Markers.push(xCursorPosition, yCursorPosition, markerTitle);
+    // pushing the new marker to the array
+    Markers.push({ xPosition: xCursorPosition, yPosition: yCursorPosition, markerInfo: markerTitle });
 
-    let newMarker = document.createElement("img");
-    newMarker.src = "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png";
+    // saving the array with the new item to the local storage
+    localStorage.setItem("Markers", JSON.stringify(Markers));
 
-    newMarker.classList += "marker";
-    newMarker.style.left = xCursorPosition + rect.left - markerWidth / 2 + "px"; // 15 = half of marker width
-    newMarker.style.top = yCursorPosition + rect.top - markerHeight + "px"; // 28 = marker height
-    newMarker.title = markerTitle;
+    addMarker(xCursorPosition, yCursorPosition, markerTitle);
 
-    document.body.appendChild(newMarker);
-    document.getElementById("overlay").hidden = false;
-    document.getElementById("invitation").textContent = "";
+    overlay.classList.remove("hidden");
+    document.querySelector("#invitation").textContent = "";
     form.reset();
-};
+});

@@ -1,64 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Map</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <div class="flex">
             <div class="sidebar">
-                <h2>Instructions</h2>
-                <ol>
-                    <li>Fill the form;</li>
-                    <li>Submit;</li>
-                    <li>Place the marker;</li>
-                    <li>Repeat!</li>
-                </ol>
+                <div>
+                    <h2>Instructions</h2>
+                    <ol>
+                        <li>Fill the form;</li>
+                        <li>Submit;</li>
+                        <li>Place the marker;</li>
+                        <li>Repeat!</li>
+                    </ol>
+                </div>
+                <button id="clearButton" class="clear-button">Clear Markers</button>
             </div>
             <div class="map-wrapper">
                 <div id="overlay" class="overlay"></div>
-                <img src="https://i.pinimg.com/736x/b3/f2/e0/b3f2e08bce371adefa3ad456fe7c38e8.jpg" id="map" class="map">
+                <img src="https://i.pinimg.com/736x/b3/f2/e0/b3f2e08bce371adefa3ad456fe7c38e8.jpg" id="map" class="map" />
+                <div id="markerCont"></div>
             </div>
             <div class="sidebar form-sidebar">
                 <h2>Marker Information</h2>
                 <form id="form">
                     <div class="form-group">
-                        <label for="name">Name: <span class="required">*</span></label> <br>
-                        <input type="name" id="name" name="name" class="name-input" required>
+                        <label for="name">Name: <span class="required">*</span></label> <br />
+                        <input type="name" id="name" name="name" class="name-input" required />
                         <div id="nameErrorDiv" class="error-container"></div>
                     </div>
                     <div class="form-group">
-                        <label for="desc">Description:</label><br>
+                        <label for="desc">Description:</label><br />
                         <textarea type="textarea" name="desc" id="desc" class="desc-input"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
                         <div class="radio-group">
-                            <input name="type" id="starting-point" value="starting-point" type="radio">
+                            <input name="type" id="starting-point" value="starting-point" type="radio" />
                             <label for="starting-point">Starting point</label>
                         </div>
                         <div class="radio-group">
-                            <input name="type" id="waypoint" value="waypoint" type="radio">
+                            <input name="type" id="waypoint" value="waypoint" type="radio" />
                             <label for="waypoint">Waypoint</label>
                         </div>
                         <div class="radio-group">
-                            <input name="type" id="destination" value="destination" type="radio">
+                            <input name="type" id="destination" value="destination" type="radio" />
                             <label for="destination">Destination</label>
                         </div>
                         <div class="radio-group">
-                            <input name="type" id="none" value="none" type="radio">
+                            <input name="type" id="none" value="none" type="radio" />
                             <label for="none">(none)</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="date">Date of visit:</label>
-                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date" />
                     </div>
                     <div class="form-group">
-                        <input name="show-date" id="show-date" value="show-date" type="checkbox">
+                        <input name="show-date" id="show-date" value="show-date" type="checkbox" />
                         <label for="show-date">Include date and time of marker creation</label>
                     </div>
                     <button type="submit" id="submit" class="submit-button">Submit</button>
