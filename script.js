@@ -34,7 +34,6 @@ let validate = (formData) => {
     desc = desc.replace(/[&<>"']/g, function (m) {
         return map[m];
     });
-    console.log(desc);
 
     // // If date should be required and valid:
     // let date = new Date(formData.get("date"));
