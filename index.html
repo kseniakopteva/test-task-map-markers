@@ -19,20 +19,20 @@
                 </ol>
             </div>
             <div class="map-wrapper">
-                <div id="overlay"></div>
-                <img src="https://i.pinimg.com/736x/b3/f2/e0/b3f2e08bce371adefa3ad456fe7c38e8.jpg" id="map">
+                <div id="overlay" class="overlay"></div>
+                <img src="https://i.pinimg.com/736x/b3/f2/e0/b3f2e08bce371adefa3ad456fe7c38e8.jpg" id="map" class="map">
             </div>
             <div class="sidebar form-sidebar">
                 <h2>Marker Information</h2>
                 <form id="form">
                     <div class="form-group">
                         <label for="name">Name: <span class="required">*</span></label> <br>
-                        <input type="name" id="name" name="name" required>
-                        <div id="nameErrorDiv"></div>
+                        <input type="name" id="name" name="name" class="name-input" required>
+                        <div id="nameErrorDiv" class="error-container"></div>
                     </div>
                     <div class="form-group">
                         <label for="desc">Description:</label><br>
-                        <textarea type="textarea" name="desc" id="desc"></textarea>
+                        <textarea type="textarea" name="desc" id="desc" class="desc-input"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
@@ -61,8 +61,8 @@
                         <input name="show-date" id="show-date" value="show-date" type="checkbox">
                         <label for="show-date">Include date and time of marker creation</label>
                     </div>
-                    <button type="submit" id="submit">Submit</button>
-                    <div id="invitation"></div>
+                    <button type="submit" id="submit" class="submit-button">Submit</button>
+                    <div id="invitation" class="invitation"></div>
                 </form>
             </div>
         </div>
